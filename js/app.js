@@ -6,7 +6,8 @@ const ctx = canvas.getContext('2d');
 
 let text = "hey"
 function drawText(){
-	ctxText = document.getElementById('text-canvas').getContext('2d');
+	ctxTextCanvas = document.getElementById('text-canvas')
+	ctxText = ctxTextCanvas.getContext('2d');
 	ctxText.font = '20px sans-serif';
 	ctxText.fillText(text, 10, 50);
 }
@@ -282,6 +283,12 @@ function clearCanvas() {
 	ctx.clearRect(0, 0, canvas.width, canvas.height)
 }
 
+function clearTextCanvas() {
+	ctxText.clearRect(0, 0, ctxTextCanvas.width, ctxTextCanvas.height)
+	console.log("clear");
+
+}
+
 document.addEventListener('keyup', (e) => {
   if(["w", "a", "s", "d"].includes(e.key)) {
     userSquare.unsetDirection(e.key) 
@@ -297,6 +304,21 @@ document.addEventListener('keydown', (e) => {
 document.addEventListener('keydown', (e) => {
   if([" "].includes(e.key) && userSquare.x > 42 && userSquare.x < 92 && userSquare.y > 200 && userSquare.y < 280) {
     console.log("inspect chest!");
+    clearTextCanvas();
+    text = "inspect chest!"
+    drawText();
+  }
+  if([" "].includes(e.key) && userSquare.x >= 0 && userSquare.x < 50 && userSquare.y > 50 && userSquare.y < 130) {
+    console.log("inspect pictures!");
+    clearTextCanvas();
+    text = "inspect pictures!"
+    drawText();
+  }
+  if([" "].includes(e.key) && userSquare.x > 150 && userSquare.x < 250 && userSquare.y >= 0 && userSquare.y < 50) {
+    console.log("inspect map!");
+    clearTextCanvas();
+    text = "inspect map!"
+    drawText();
   }
 })
 
