@@ -1,5 +1,16 @@
+//set up game canvas
 const canvas = document.getElementById('my-canvas');
 const ctx = canvas.getContext('2d');
+
+//set up text box
+
+let text = "hey"
+function drawText(){
+	ctxText = document.getElementById('text-canvas').getContext('2d');
+	ctxText.font = '20px sans-serif';
+	ctxText.fillText(text, 10, 50);
+}
+drawText();
 
 const userSquare = {
 	x: 50,
@@ -241,12 +252,6 @@ for(let i = 0; i < keys.length; i++) {
 // }
 // obstacles.desk.draw();
 
-function drawText(){
-	ctxText = document.getElementById('text-canvas').getContext('2d');
-	ctxText.font = '20px serif';
-	ctxText.fillText('hello', 10, 50);
-}
-drawText();
 
 
 const game = {
@@ -288,3 +293,10 @@ document.addEventListener('keydown', (e) => {
     userSquare.setDirection(e.key) 
   }
 })
+
+document.addEventListener('keydown', (e) => {
+  if([" "].includes(e.key) && userSquare.x > 42 && userSquare.x < 92 && userSquare.y > 200 && userSquare.y < 280) {
+    console.log("inspect chest!");
+  }
+})
+
