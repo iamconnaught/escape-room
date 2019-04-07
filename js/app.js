@@ -7,7 +7,7 @@ const userSquare = {
 	width: 50,
 	height: 50,
 	color: "blue",
-	speed: 2,
+	speed: 1,
 	direction: {
 		up: false,
 		right: false,
@@ -99,7 +99,7 @@ userSquare.draw();
 
 const obstacles = {
 	desk: {
-		x: 120,
+		x: 170,
 		y: 100,
 		width: 150,
 		height: 80,
@@ -112,8 +112,8 @@ const obstacles = {
 		}
 	},
 	bookcase: {
-		x: 360,
-		y: 300,
+		x: 358,
+		y: 298,
 		width: 40,
 		height: 100,
 		color: "black",
@@ -123,10 +123,87 @@ const obstacles = {
 			ctx.fillStyle = this.color;
 			ctx.fill();
 		}
+	},
+	chest: {
+		x: 2,
+		y: 200,
+		width: 40,
+		height: 80,
+		color: "black",
+		draw(){
+			ctx.beginPath();
+			ctx.rect(this.x,this.y,this.width,this.height);
+			ctx.fillStyle = this.color;
+			ctx.fill();
+		}
+	},
+// }
+
+// const inspectionZones = {
+	deskZone: {
+		x: 170,
+		y: 180,
+		width:150,
+		height: 50,
+		color: "lightblue",
+		draw() {
+			ctx.beginPath();
+			ctx.rect(this.x,this.y,this.width,this.height);
+			ctx.fillStyle = this.color;
+			ctx.fill();
+		}
+	},
+	bookcaseZone: {
+		x: 308,
+		y: 298,
+		width: 50,
+		height: 100,
+		color: "lightblue",
+		draw() {
+			ctx.beginPath();
+			ctx.rect(this.x,this.y,this.width,this.height);
+			ctx.fillStyle = this.color;
+			ctx.fill();
+		}
+	},
+	mapZone: {
+		x: 150,
+		y: 0,
+		width: 100,
+		height: 50,
+		draw() {
+			ctx.beginPath();
+			ctx.rect(this.x,this.y,this.width,this.height);
+			ctx.fillStyle = this.color;
+			ctx.fill();
+		}
+	},
+	picturesZone: {
+		x: 0,
+		y: 50,
+		width: 50,
+		height: 80,
+		draw() {
+			ctx.beginPath();
+			ctx.rect(this.x,this.y,this.width,this.height);
+			ctx.fillStyle = this.color;
+			ctx.fill();
+		}
+	},
+	chestZone: {
+		x: 42,
+		y: 200,
+		width: 50,
+		height: 80,
+		draw() {
+			ctx.beginPath();
+			ctx.rect(this.x,this.y,this.width,this.height);
+			ctx.fillStyle = this.color;
+			ctx.fill();
+		}
 	}
+
 }
-
-
 
  for (key in obstacles){
  	// obstacles.key.draw()
@@ -143,6 +220,11 @@ for(let i = 0; i < keys.length; i++) {
 	obstacles[keys[i]].draw()
 }
 
+// const keys2 = Object.keys2(inspectionZones)
+
+// for(let j = 0; j < keys2.length; j++){
+// 			inspectionZones[keys2[i]].draw()
+// 		}
 // const desk = {
 // 	x: 120,
 // 	y: 100,
@@ -159,19 +241,33 @@ for(let i = 0; i < keys.length; i++) {
 // }
 // obstacles.desk.draw();
 
+function drawText(){
+	ctxText = document.getElementById('text-canvas').getContext('2d');
+	ctxText.font = '20px serif';
+	ctxText.fillText('hello', 10, 50);
+}
+drawText();
+
+
 const game = {
 	drawObstacles() {
 		for(let i = 0; i < keys.length; i++) {
 			obstacles[keys[i]].draw()
 		}
-	}
+	},
+	// drawInspectionZones(){
+	// 	for(let j = 0; j < keys2.length; j++){
+	// 		inspectionZones[keys2[i]].draw()
+	// 	}
+	// }
 }
 
 function animate(){
 	userSquare.move();
 	clearCanvas();
-	userSquare.draw();
 	game.drawObstacles();
+	userSquare.draw();
+	// game.drawInspectionZones();
 	// console.log('animate');	
 	window.requestAnimationFrame(animate)
 }

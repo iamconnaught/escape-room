@@ -1,4 +1,9 @@
-canvas {
+#my-canvas {
+	border: 1px solid black;
+	background-color: rgb(220,220,220);
+}
+
+#text-canvas {
 	border: 1px solid black;
 	background-color: rgb(220,220,220);
 }
