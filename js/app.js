@@ -320,5 +320,17 @@ document.addEventListener('keydown', (e) => {
     text = "inspect map!"
     drawText();
   }
+  if([" "].includes(e.key) && userSquare.x > 308 && userSquare.x < 358 && userSquare.y > 298 && userSquare.y < 398) {
+    console.log("inspect bookcase!");
+    clearTextCanvas();
+    text = "inspect bookcase!"
+    drawText();
+  }
+  if([" "].includes(e.key) && userSquare.x > 170 && userSquare.x < 320 && userSquare.y > 180 && userSquare.y < 230) {
+    console.log("inspect desk!");
+    clearTextCanvas();
+    text = "inspect desk!"
+    drawText();
+  }
 })
 
