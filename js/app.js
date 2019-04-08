@@ -20,6 +20,7 @@ const userSquare = {
 	height: 50,
 	color: "blue",
 	speed: 2,
+	closeness: 5,
 	direction: {
 		up: false,
 		right: false,
@@ -171,26 +172,53 @@ const userSquare = {
 			return true
 		}
 	},
-	isDirectlyBeneath(thing) {
-		const keys = Object.keys(obstacles)
-		for(let i = 0; i < keys.length; i++){
 
-				const obst = obstacles[keys[i]]
+	isDirectlyBeneath(obst) {
+		// const keys = Object.keys(obstacles)
+		//console.log(keys);
+		// console.log(obst);
 
-				if(
-					// if top of this would hit bottom of obst -- if i'm beneath thing
-					this.y - this.speed < obst.y + obst.height && 
-					// if this right edge is to the right of thing's left edge &&
-					this.x + this.width > obst.x &&
-					// if this left edge is to the left of thing's right edge &&
-					this.x < obst.x + obst.width
-					
 
-				) {
-					console.log("isDirectlyBeneath ");
-					return true
-				} else return false
-			}
+
+		// ITERATE OVER obstacles
+
+		// 
+
+
+		// for(let i = 0; i < keys.length; i++){
+		// 		// console.log(keys[i]);
+
+		// 	const obst = obstacles[keys[i]]
+		// 	console.log(obst);
+			const obstBotEdge = obst.y + obst.height
+
+			if(
+				// if this top edge is within 5px of that bott edgue
+				Math.abs(this.y - obstBotEdge) <= this.closeness &&
+				// // if this right edge is to the right of thing's left edge &&
+				this.x + this.width > obst.x &&
+				// // if this left edge is to the left of thing's right edge &&
+				this.x < obst.x + obst.width &&
+				// this is below the bottom of the map
+				this.y > obst.y + obst.height
+
+
+
+			) {
+				// console.log("bottom is below ");
+				console.log("isDirectlyBeneath ", obst);
+				return true
+			} 
+			else {
+				game.showDefaultText();
+				return false }
+		// }
+
+
+
+
+
+
 	},
 	isDirectlyLeftOf(thing) {
 		const keys = Object.keys(obstacles)
@@ -235,18 +263,18 @@ const userSquare = {
 
 		if(this.canMoveUp()) {
 			this.y -= this.speed;
-			this.isDirectlyBeneath();
+			// this.isDirectlyBeneath(obstacles.map)
 		} 
 		if(this.canMoveDown()) {
 			this.y += this.speed;
 		} 
 		if(this.canMoveLeft()) {
 			this.x -= this.speed;
-			this.isDirectlyRightOf();
+			// this.isDirectlyRightOf();
 		} 
 		if(this.canMoveRight()) {
 			this.x += this.speed;
-			this.isDirectlyLeftOf();
+			// this.isDirectlyLeftOf();
 		} 
 		// if(this.direction.left && this.x - this.speed > 0) { console.log("left");
 		// 	for(let i = 0; i < keys.length; i++){
@@ -279,27 +307,28 @@ const userSquare = {
 		// 	}
 		// }
 	},
-	checkCollision(thing) {
-		const keys = Object.keys(obstacles)
-	    for(let i = 0; i < keys.length; i++){
-		    if(
-		      this.x + this.width > obstacles[keys[i]].x &&
-		      this.x < obstacles[keys[i]].x + obstacles[keys[i]].width && 
-		      this.y + this.height > obstacles[keys[i]].y &&
-		      this.y < obstacles[keys[i]].y + obstacles[keys[i]].height
-		    ) {
-		      console.log('collision');
-		      return true
-		    }  
-		    else return false
-	  	}
-	}
+	// checkCollision(thing) {
+	// 	const keys = Object.keys(obstacles)
+	//     for(let i = 0; i < keys.length; i++){
+	// 	    if(
+	// 	      this.x + this.width > obstacles[keys[i]].x &&
+	// 	      this.x < obstacles[keys[i]].x + obstacles[keys[i]].width && 
+	// 	      this.y + this.height > obstacles[keys[i]].y &&
+	// 	      this.y < obstacles[keys[i]].y + obstacles[keys[i]].height
+	// 	    ) {
+	// 	      console.log('collision');
+	// 	      return true
+	// 	    }  
+	// 	    else return false
+	//   	}
+	// }
 
 }
 userSquare.draw();
 
 const obstacles = {
 	desk: {
+		name: "desk",
 		x: 170,
 		y: 100,
 		width: 150,
@@ -339,10 +368,11 @@ const obstacles = {
 		}
 	},
 	map: {
+		name: "map",
 		x: 150,
 		y: 0,
 		width: 100,
-		height: 2,
+		height: 5,
 		color: "black",
 		draw(){
 			ctx.beginPath();
@@ -354,7 +384,7 @@ const obstacles = {
 	pictures: {
 		x: 0,
 		y: 50,
-		width: 2,
+		width: 5,
 		height: 80,
 		color: "black",
 		draw(){
@@ -481,12 +511,43 @@ const game = {
 			obstacles[keys[i]].draw()
 		}
 	},
+	showDefaultText(){
+		let $div = document.getElementById("text-div")
+		$div.innerHTML = 'Explore the room, press SPACE to inspect objects';
+	},
+	showMapDetails(){
+		let $div = document.getElementById("text-div")
+		$div.innerHTML = "Zurich: 47 21N 8 31E <br> Dublin: 53 20N 6 15W <br> Tokyo: 35 40N 139 0E <br> Rio: 22 57S 43 12W <br> Paris: 48 48N 2 20E <br> Havana: 23 8N 82 23W <br> Melbourne: 37 47S 144 58E <br><br> SPACE to return";
+		console.log($div);
+	},
+	showDeskDetails(){
+		let $div = document.getElementById("text-div")
+		$div.innerHTML = "Desk Details";
+		console.log($div);
+	},
+	showChestDetails(){
+		let $div = document.getElementById("text-div")
+		$div.innerHTML = "Chest Details";
+		console.log($div);
+	},
+	showBookcaseDetails(){
+		let $div = document.getElementById("text-div")
+		$div.innerHTML = "Bookcase Details";
+		console.log($div);
+	},
+	showPicturesDetails(){
+		let $div = document.getElementById("text-div")
+		$div.innerHTML = "Pictures Details";
+		console.log($div);
+	}
+
 	// drawInspectionZones(){
 	// 	for(let j = 0; j < keys2.length; j++){
 	// 		inspectionZones[keys2[i]].draw()
 	// 	}
 	// }
 }
+//game.showDefaultText();
 
 function animate(){
 	userSquare.move();
@@ -503,11 +564,14 @@ function clearCanvas() {
 	ctx.clearRect(0, 0, canvas.width, canvas.height)
 }
 
-function clearTextCanvas() {
-	ctxText.clearRect(0, 0, ctxTextCanvas.width, ctxTextCanvas.height)
-	console.log("clear");
+// function clearTextCanvas() {
+// 	ctxText.clearRect(0, 0, ctxTextCanvas.width, ctxTextCanvas.height)
+// 	console.log("clear");
 
-}
+// }
+
+
+
 
 document.addEventListener('keyup', (e) => {
   if(["w", "a", "s", "d"].includes(e.key)) {
@@ -522,47 +586,44 @@ document.addEventListener('keydown', (e) => {
 })
 
 document.addEventListener('keydown', (e) => {
-  if([" "].includes(e.key) && userSquare.isDirectlyBeneath(obstacles.desk) == true){
-  	console.log("inspect desk");
+
+  if(e.key == " ") {
+  	if(userSquare.isDirectlyBeneath(obstacles.map)) {
+  		console.log("cool you're beneath map");
+  		game.showMapDetails();
+  		// do inspect map stuff
+  	} 
+  	// else if (userSquare.isDirectlyBeneath(obstacles.desk)) {
+
+  	// }
+  } 
+  // if([" "].includes(e.key) && userSquare.isDirectlyBeneath(obstacles.desk) === true){
+  // 	console.log("inspect desk");
+  // }
+  //  if([" "].includes(e.key) && userSquare.isDirectlyBeneath(obstacles.map) === true){
+  // 	console.log("inspect map");
+  // }
+  if([" "].includes(e.key) && userSquare.x > 42 && userSquare.x < 92 && userSquare.y > 200 && userSquare.y < 280) {
+    console.log("inspect chest!");
+    game.showChestDetails();
   }
-   if([" "].includes(e.key) && userSquare.isDirectlyBeneath(obstacles.map) == true){
-  	console.log("inspect map");
+  if([" "].includes(e.key) && userSquare.x >= 0 && userSquare.x < 50 && userSquare.y > 50 && userSquare.y < 130) {
+    console.log("inspect pictures!");
+    game.showPicturesDetails();
   }
-  // if([" "].includes(e.key) && userSquare.x > 42 && userSquare.x < 92 && userSquare.y > 200 && userSquare.y < 280) {
-  //   console.log("inspect chest!");
-  //   clearTextCanvas();
-  //   text = "inspect chest!"
-  //   drawText();
-  // }
-  // if([" "].includes(e.key) && userSquare.x >= 0 && userSquare.x < 50 && userSquare.y > 50 && userSquare.y < 130) {
-  //   console.log("inspect pictures!");
-  //   clearTextCanvas();
-  //   text = "inspect pictures!"
-  //   drawText();
-  // }
-  // if([" "].includes(e.key) && userSquare.x > 150 && userSquare.x < 250 && userSquare.y >= 0 && userSquare.y < 50) {
-  //   console.log("inspect map!");
-  //   clearTextCanvas();
-  //   text = setInterval(() => {
-  //   	"Zurich: 47' 21N 8' 31E";
-  //   	"Dublin: 53' 20N 6' 15W";
-  //   	"Tokyo: 35' 40N 139 0E";},
-  //   	1000)
-    
-    
-  //   drawText();
-  // }
-  // if([" "].includes(e.key) && userSquare.x > 308 && userSquare.x < 358 && userSquare.y > 298 && userSquare.y < 398) {
-  //   console.log("inspect bookcase!");
-  //   clearTextCanvas();
-  //   text = "inspect bookcase!"
-  //   drawText();
-  // }
-  // if([" "].includes(e.key) && userSquare.x > 170 && userSquare.x < 320 && userSquare.y > 180 && userSquare.y < 230) {
-  //   console.log("inspect desk!");
-  //   clearTextCanvas();
-  //   text = "inspect desk!"
-  //   drawText();
-  // }
+  if([" "].includes(e.key) && userSquare.x > 308 && userSquare.x < 358 && userSquare.y > 298 && userSquare.y < 398) {
+    console.log("inspect bookcase!");
+    game.showBookcaseDetails();
+  }
+  if([" "].includes(e.key) && userSquare.x > 170 && userSquare.x < 320 && userSquare.y > 180 && userSquare.y < 230) {
+    console.log("inspect desk!");
+    game.showDeskDetails():
+  }
 })
+
+// document.addEventListener('keyup', (e) => {
+// 	if(e.key == " "){
+// 		game.showDefaultText();
+// 	}
+// })
 
