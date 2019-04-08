@@ -4,14 +4,14 @@ const ctx = canvas.getContext('2d');
 
 //set up text box
 
-let text = "hey"
-function drawText(){
-	ctxTextCanvas = document.getElementById('text-canvas')
-	ctxText = ctxTextCanvas.getContext('2d');
-	ctxText.font = '20px sans-serif';
-	ctxText.fillText(text, 10, 50);
-}
-drawText();
+// let text = "hey"
+// function drawText(){
+// 	ctxTextCanvas = document.getElementById('text-canvas')
+// 	ctxText = ctxTextCanvas.getContext('2d');
+// 	ctxText.font = '20px sans-serif';
+// 	ctxText.fillText(text, 10, 50);
+// }
+// drawText();
 
 const userSquare = {
 	x: 55,
@@ -187,9 +187,47 @@ const userSquare = {
 					
 
 				) {
-					console.log("isDirectlyBeneath " + obst);
+					console.log("isDirectlyBeneath ");
 					return true
-				}
+				} else return false
+			}
+	},
+	isDirectlyLeftOf(thing) {
+		const keys = Object.keys(obstacles)
+			for(let i = 0; i < keys.length; i++){
+
+				const obst = obstacles[keys[i]]
+
+				if(
+					this.x + this.width + this.speed > obst.x && 
+					// 
+					this.y + this.height > obst.y &&
+					// 
+					this.y < obst.y + obst.height
+					
+
+				) {
+					console.log("isDirectlyLeftOf");
+					return true
+				} else return false	
+			}
+	},
+	isDirectlyRightOf(thing) {
+		const keys = Object.keys(obstacles)
+		for(let i = 0; i < keys.length; i++){
+
+				const obst = obstacles[keys[i]]
+
+				if(
+					this.x - this.speed < obst.x + obst.width && 
+					// 
+					this.y + this.height > obst.y &&
+					// 
+					this.y < obst.y + obst.height
+				) {
+					console.log("isDirectlyRightOf");
+					return true
+				} else return false
 			}
 	},
 	move(){ 
@@ -204,9 +242,11 @@ const userSquare = {
 		} 
 		if(this.canMoveLeft()) {
 			this.x -= this.speed;
+			this.isDirectlyRightOf();
 		} 
 		if(this.canMoveRight()) {
 			this.x += this.speed;
+			this.isDirectlyLeftOf();
 		} 
 		// if(this.direction.left && this.x - this.speed > 0) { console.log("left");
 		// 	for(let i = 0; i < keys.length; i++){
@@ -298,73 +338,99 @@ const obstacles = {
 			ctx.fill();
 		}
 	},
-}
-
-const inspectionZones = {
-	deskZone: {
-		x: 170,
-		y: 180,
-		width:150,
-		height: 50,
-		color: "lightblue",
-		draw() {
-			ctx.beginPath();
-			ctx.rect(this.x,this.y,this.width,this.height);
-			ctx.fillStyle = this.color;
-			ctx.fill();
-		}
-	},
-	bookcaseZone: {
-		x: 308,
-		y: 298,
-		width: 50,
-		height: 100,
-		color: "lightblue",
-		draw() {
-			ctx.beginPath();
-			ctx.rect(this.x,this.y,this.width,this.height);
-			ctx.fillStyle = this.color;
-			ctx.fill();
-		}
-	},
-	mapZone: {
+	map: {
 		x: 150,
 		y: 0,
 		width: 100,
-		height: 50,
-		draw() {
+		height: 2,
+		color: "black",
+		draw(){
 			ctx.beginPath();
 			ctx.rect(this.x,this.y,this.width,this.height);
 			ctx.fillStyle = this.color;
 			ctx.fill();
 		}
 	},
-	picturesZone: {
+	pictures: {
 		x: 0,
 		y: 50,
-		width: 50,
+		width: 2,
 		height: 80,
-		draw() {
+		color: "black",
+		draw(){
 			ctx.beginPath();
 			ctx.rect(this.x,this.y,this.width,this.height);
 			ctx.fillStyle = this.color;
 			ctx.fill();
 		}
 	},
-	chestZone: {
-		x: 42,
-		y: 200,
-		width: 50,
-		height: 80,
-		draw() {
-			ctx.beginPath();
-			ctx.rect(this.x,this.y,this.width,this.height);
-			ctx.fillStyle = this.color;
-			ctx.fill();
-		}
-	}
-
 }
+
+// const inspectionZones = {
+// 	deskZone: {
+// 		x: 170,
+// 		y: 180,
+// 		width:150,
+// 		height: 50,
+// 		color: "lightblue",
+// 		draw() {
+// 			ctx.beginPath();
+// 			ctx.rect(this.x,this.y,this.width,this.height);
+// 			ctx.fillStyle = this.color;
+// 			ctx.fill();
+// 		}
+// 	},
+// 	bookcaseZone: {
+// 		x: 308,
+// 		y: 298,
+// 		width: 50,
+// 		height: 100,
+// 		color: "lightblue",
+// 		draw() {
+// 			ctx.beginPath();
+// 			ctx.rect(this.x,this.y,this.width,this.height);
+// 			ctx.fillStyle = this.color;
+// 			ctx.fill();
+// 		}
+// 	},
+// 	mapZone: {
+// 		x: 150,
+// 		y: 0,
+// 		width: 100,
+// 		height: 50,
+// 		draw() {
+// 			ctx.beginPath();
+// 			ctx.rect(this.x,this.y,this.width,this.height);
+// 			ctx.fillStyle = this.color;
+// 			ctx.fill();
+// 		}
+// 	},
+// 	picturesZone: {
+// 		x: 0,
+// 		y: 50,
+// 		width: 50,
+// 		height: 80,
+// 		draw() {
+// 			ctx.beginPath();
+// 			ctx.rect(this.x,this.y,this.width,this.height);
+// 			ctx.fillStyle = this.color;
+// 			ctx.fill();
+// 		}
+// 	},
+// 	chestZone: {
+// 		x: 42,
+// 		y: 200,
+// 		width: 50,
+// 		height: 80,
+// 		draw() {
+// 			ctx.beginPath();
+// 			ctx.rect(this.x,this.y,this.width,this.height);
+// 			ctx.fillStyle = this.color;
+// 			ctx.fill();
+// 		}
+// 	}
+
+// }
 
 
 const init = () => {
@@ -456,41 +522,47 @@ document.addEventListener('keydown', (e) => {
 })
 
 document.addEventListener('keydown', (e) => {
-  if([" "].includes(e.key) && userSquare.x > 42 && userSquare.x < 92 && userSquare.y > 200 && userSquare.y < 280) {
-    console.log("inspect chest!");
-    clearTextCanvas();
-    text = "inspect chest!"
-    drawText();
+  if([" "].includes(e.key) && userSquare.isDirectlyBeneath(obstacles.desk) == true){
+  	console.log("inspect desk");
   }
-  if([" "].includes(e.key) && userSquare.x >= 0 && userSquare.x < 50 && userSquare.y > 50 && userSquare.y < 130) {
-    console.log("inspect pictures!");
-    clearTextCanvas();
-    text = "inspect pictures!"
-    drawText();
+   if([" "].includes(e.key) && userSquare.isDirectlyBeneath(obstacles.map) == true){
+  	console.log("inspect map");
   }
-  if([" "].includes(e.key) && userSquare.x > 150 && userSquare.x < 250 && userSquare.y >= 0 && userSquare.y < 50) {
-    console.log("inspect map!");
-    clearTextCanvas();
-    text = setInterval(() => {
-    	"Zurich: 47' 21N 8' 31E";
-    	"Dublin: 53' 20N 6' 15W";
-    	"Tokyo: 35' 40N 139 0E";},
-    	1000)
+  // if([" "].includes(e.key) && userSquare.x > 42 && userSquare.x < 92 && userSquare.y > 200 && userSquare.y < 280) {
+  //   console.log("inspect chest!");
+  //   clearTextCanvas();
+  //   text = "inspect chest!"
+  //   drawText();
+  // }
+  // if([" "].includes(e.key) && userSquare.x >= 0 && userSquare.x < 50 && userSquare.y > 50 && userSquare.y < 130) {
+  //   console.log("inspect pictures!");
+  //   clearTextCanvas();
+  //   text = "inspect pictures!"
+  //   drawText();
+  // }
+  // if([" "].includes(e.key) && userSquare.x > 150 && userSquare.x < 250 && userSquare.y >= 0 && userSquare.y < 50) {
+  //   console.log("inspect map!");
+  //   clearTextCanvas();
+  //   text = setInterval(() => {
+  //   	"Zurich: 47' 21N 8' 31E";
+  //   	"Dublin: 53' 20N 6' 15W";
+  //   	"Tokyo: 35' 40N 139 0E";},
+  //   	1000)
     
     
-    drawText();
-  }
-  if([" "].includes(e.key) && userSquare.x > 308 && userSquare.x < 358 && userSquare.y > 298 && userSquare.y < 398) {
-    console.log("inspect bookcase!");
-    clearTextCanvas();
-    text = "inspect bookcase!"
-    drawText();
-  }
-  if([" "].includes(e.key) && userSquare.x > 170 && userSquare.x < 320 && userSquare.y > 180 && userSquare.y < 230) {
-    console.log("inspect desk!");
-    clearTextCanvas();
-    text = "inspect desk!"
-    drawText();
-  }
+  //   drawText();
+  // }
+  // if([" "].includes(e.key) && userSquare.x > 308 && userSquare.x < 358 && userSquare.y > 298 && userSquare.y < 398) {
+  //   console.log("inspect bookcase!");
+  //   clearTextCanvas();
+  //   text = "inspect bookcase!"
+  //   drawText();
+  // }
+  // if([" "].includes(e.key) && userSquare.x > 170 && userSquare.x < 320 && userSquare.y > 180 && userSquare.y < 230) {
+  //   console.log("inspect desk!");
+  //   clearTextCanvas();
+  //   text = "inspect desk!"
+  //   drawText();
+  // }
 })
 
