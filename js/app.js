@@ -14,12 +14,12 @@ function drawText(){
 drawText();
 
 const userSquare = {
-	x: 50,
-	y: 300,
+	x: 55,
+	y: 0,
 	width: 50,
 	height: 50,
 	color: "blue",
-	speed: 1,
+	speed: 2,
 	direction: {
 		up: false,
 		right: false,
@@ -46,63 +46,212 @@ const userSquare = {
 		if(key == "s") this.direction.down = false;
 		if(key == "d") this.direction.right = false;
 	},
-	move(){
-		// console.log("move");
-		if(this.direction.up && this.y - this.speed > 0) { console.log("up");
+	canMoveUp() {
+
+		const keys = Object.keys(obstacles)
+
+		// if subtracting speed wouldn't put us off the top of the canvas
+		if(this.direction.up && this.y - this.speed > 0) { 
+
+			// see if moving up would cause us to intersect with any obstacle
 			for(let i = 0; i < keys.length; i++){
 
-				// if (collision w/ desk OR collision w/ cupboard) && (...)
-				if(this.checkCollision(obstacles[keys[i]]) == true 
-					&& this.y - this.speed < obstacles[keys[i]].y + obstacles[keys[i]].height) {
-					console.log(" you cant go up sorry");
-				} else {
-					this.y -= this.speed;
-				}
-			}
-		}
-		if(this.direction.left && this.x - this.speed > 0) { console.log("left");
-			for(let i = 0; i < keys.length; i++){
-				if(this.checkCollision(obstacles[keys[i]]) == true 
-					&& this.x - this.speed < obstacles[keys[i]].x + obstacles[keys[i]].width) {
+				const obst = obstacles[keys[i]]
 
-				} else {
-					this.x -= this.speed;
-				}
-			}
-		}
-		if(this.direction.down && this.y + this.height + this.speed < canvas.height) { console.log("down");
-			for(let i = 0; i < keys.length; i++){
-				if(this.checkCollision(obstacles[keys[i]]) == true 
-					&& this.y + this.height + this.speed > obstacles[keys[i]].y) {
+				if(
+					// if top of this would hit bottom of obst -- if i'm beneathing
+					this.y - this.speed < obst.y + obst.height && 
+					// if this right edge is to the right of thing's left edge &&
+					this.x + this.width > obst.x &&
+					// if this left edge is to the left of thing's right edge &&
+					this.x < obst.x + obst.width &&
+					// if this is below thing &&
+					this.y + this.height > obst.y
 
-				} else {
-					this.y += this.speed;
+				) {
+					
+					return false
 				}
 			}
-		}
-		if(this.direction.right && this.x + this.width + this.speed < canvas.width) { console.log("right");
-			for(let i = 0; i < keys.length; i++){
-				if(this.checkCollision(obstacles[keys[i]]) == true 
-					&& this.x + this.width + this.speed > obstacles[keys[i]].x) {
 
-				} else {
-					this.x += this.speed;
+			// we're thru the loop -- so it's clear
+			return true
+		}		
+	},
+	canMoveDown() {
+		const keys = Object.keys(obstacles)
+
+		// if adding speed wouldn't put us off the bottom of the canvas
+		if(this.direction.down && this.y + this.height + this.speed < canvas.height) { 
+
+			// see if moving down would cause us to intersect with any obstacle
+			for(let i = 0; i < keys.length; i++){
+
+				const obst = obstacles[keys[i]]
+
+				if(
+					// if bottom of this would hit top of obst -- if i'm above
+					this.y + this.height + this.speed > obst.y && 
+					// if this right edge is to the right of thing's left edge &&
+					this.x + this.width > obst.x &&
+					// if this left edge is to the left of thing's right edge &&
+					this.x < obst.x + obst.width &&
+					// if this is above thing &&
+					this.y < obst.y + obst.height
+
+				) {
+					
+					return false
 				}
 			}
+
+			// we're thru the loop -- so it's clear
+			return true
+		}		
+	},
+	canMoveLeft() {
+		const keys = Object.keys(obstacles)
+
+		// if subtracting speed wouldn't put us off the edge of the canvas
+		if(this.direction.left && this.x - this.speed > 0) { 
+
+			// see if moving left would cause us to intersect with any obstacle
+			for(let i = 0; i < keys.length; i++){
+
+				const obst = obstacles[keys[i]]
+
+				if(
+					// if leftside of this would hit rightside of obst -- if i'm right of
+					this.x - this.speed < obst.x + obst.width && 
+					// 
+					this.y + this.height > obst.y &&
+					// 
+					this.y < obst.y + obst.height &&
+					// if this is left of thing &&
+					this.x + this.width > obst.x
+
+				) {
+					
+					return false
+				}
+			}
+
+			// we're thru the loop -- so it's clear
+			return true
+		}		
+	}, 
+	canMoveRight() {
+		const keys = Object.keys(obstacles)
+
+		// if adding speed wouldn't put us off the edge of the canvas
+		if(this.direction.right && this.x + this.width + this.speed < canvas.width) { 
+
+			// see if moving right would cause us to intersect with any obstacle
+			for(let i = 0; i < keys.length; i++){
+
+				const obst = obstacles[keys[i]]
+
+				if(
+					// if rightside of this would hit leftside of obst -- if i'm left of
+					this.x + this.width + this.speed > obst.x && 
+					// 
+					this.y + this.height > obst.y &&
+					// 
+					this.y < obst.y + obst.height &&
+					// if this is right of thing &&
+					this.x < obst.x + obst.width
+
+				) {
+					
+					return false
+				}
+			}
+
+			// we're thru the loop -- so it's clear
+			return true
 		}
 	},
+	isDirectlyBeneath(thing) {
+		const keys = Object.keys(obstacles)
+		for(let i = 0; i < keys.length; i++){
+
+				const obst = obstacles[keys[i]]
+
+				if(
+					// if top of this would hit bottom of obst -- if i'm beneath thing
+					this.y - this.speed < obst.y + obst.height && 
+					// if this right edge is to the right of thing's left edge &&
+					this.x + this.width > obst.x &&
+					// if this left edge is to the left of thing's right edge &&
+					this.x < obst.x + obst.width
+					
+
+				) {
+					console.log("isDirectlyBeneath " + obst);
+					return true
+				}
+			}
+	},
+	move(){ 
+		//console.log("move");
+
+		if(this.canMoveUp()) {
+			this.y -= this.speed;
+			this.isDirectlyBeneath();
+		} 
+		if(this.canMoveDown()) {
+			this.y += this.speed;
+		} 
+		if(this.canMoveLeft()) {
+			this.x -= this.speed;
+		} 
+		if(this.canMoveRight()) {
+			this.x += this.speed;
+		} 
+		// if(this.direction.left && this.x - this.speed > 0) { console.log("left");
+		// 	for(let i = 0; i < keys.length; i++){
+		// 		if(this.checkCollision(obstacles[keys[i]]) == true 
+		// 			&& this.x - this.speed < obstacles[keys[i]].x + obstacles[keys[i]].width) {
+
+		// 		} else {
+		// 			this.x -= this.speed;
+		// 		}
+		// 	}
+		// }
+		// if(this.direction.down && this.y + this.height + this.speed < canvas.height) { console.log("down");
+		// 	for(let i = 0; i < keys.length; i++){
+		// 		if(this.checkCollision(obstacles[keys[i]]) == true 
+		// 			&& this.y + this.height + this.speed > obstacles[keys[i]].y) {
+
+		// 		} else {
+		// 			this.y += this.speed;
+		// 		}
+		// 	}
+		// }
+		// if(this.direction.right && this.x + this.width + this.speed < canvas.width) { console.log("right");
+		// 	for(let i = 0; i < keys.length; i++){
+		// 		if(this.checkCollision(obstacles[keys[i]]) == true 
+		// 			&& this.x + this.width + this.speed > obstacles[keys[i]].x) {
+
+		// 		} else {
+		// 			this.x += this.speed;
+		// 		}
+		// 	}
+		// }
+	},
 	checkCollision(thing) {
-    for(let i = 0; i < keys.length; i++){
-	    if(
-	      this.x + this.width > obstacles[keys[i]].x &&
-	      this.x < obstacles[keys[i]].x + obstacles[keys[i]].width && 
-	      this.y + this.height > obstacles[keys[i]].y &&
-	      this.y < obstacles[keys[i]].y + obstacles[keys[i]].height
-	    ) {
-	      console.log('collision');
-	      return true
-	    }  
-	    else return false
+		const keys = Object.keys(obstacles)
+	    for(let i = 0; i < keys.length; i++){
+		    if(
+		      this.x + this.width > obstacles[keys[i]].x &&
+		      this.x < obstacles[keys[i]].x + obstacles[keys[i]].width && 
+		      this.y + this.height > obstacles[keys[i]].y &&
+		      this.y < obstacles[keys[i]].y + obstacles[keys[i]].height
+		    ) {
+		      console.log('collision');
+		      return true
+		    }  
+		    else return false
 	  	}
 	}
 
@@ -149,9 +298,9 @@ const obstacles = {
 			ctx.fill();
 		}
 	},
-// }
+}
 
-// const inspectionZones = {
+const inspectionZones = {
 	deskZone: {
 		x: 170,
 		y: 180,
@@ -217,21 +366,25 @@ const obstacles = {
 
 }
 
- for (key in obstacles){
- 	// obstacles.key.draw()
- 	console.log(key);
- 	console.log(obstacles[key].draw())
- }
+
+const init = () => {
+	 for (key in obstacles){
+	 	// obstacles.key.draw()
+	 	console.log(key);
+	 	console.log(obstacles[key].draw())
+	 }
 
 
 
-const keys = Object.keys(obstacles)
+	const keys = Object.keys(obstacles)
 
-console.log(keys)
-for(let i = 0; i < keys.length; i++) {
-	obstacles[keys[i]].draw()
+	console.log(keys)
+	for(let i = 0; i < keys.length; i++) {
+		obstacles[keys[i]].draw()
+	}
+	
 }
-
+init()
 // const keys2 = Object.keys2(inspectionZones)
 
 // for(let j = 0; j < keys2.length; j++){
@@ -257,6 +410,7 @@ for(let i = 0; i < keys.length; i++) {
 
 const game = {
 	drawObstacles() {
+		const keys = Object.keys(obstacles)
 		for(let i = 0; i < keys.length; i++) {
 			obstacles[keys[i]].draw()
 		}
@@ -317,7 +471,13 @@ document.addEventListener('keydown', (e) => {
   if([" "].includes(e.key) && userSquare.x > 150 && userSquare.x < 250 && userSquare.y >= 0 && userSquare.y < 50) {
     console.log("inspect map!");
     clearTextCanvas();
-    text = "inspect map!"
+    text = setInterval(() => {
+    	"Zurich: 47' 21N 8' 31E";
+    	"Dublin: 53' 20N 6' 15W";
+    	"Tokyo: 35' 40N 139 0E";},
+    	1000)
+    
+    
     drawText();
   }
   if([" "].includes(e.key) && userSquare.x > 308 && userSquare.x < 358 && userSquare.y > 298 && userSquare.y < 398) {
