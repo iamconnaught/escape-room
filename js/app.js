@@ -512,33 +512,34 @@ const game = {
 		}
 	},
 	showDefaultText(){
-		let $div = document.getElementById("text-div")
-		$div.innerHTML = 'Explore the room, press SPACE to inspect objects';
+		let div = document.getElementById("text-div")
+		div.innerHTML = 'Explore the room<br>( up: "w", down: "s", left: "a", right: "d" ) <br>Press SPACE to inspect objects';
 	},
 	showMapDetails(){
-		let $div = document.getElementById("text-div")
-		$div.innerHTML = "Zurich: 47 21N 8 31E <br> Dublin: 53 20N 6 15W <br> Tokyo: 35 40N 139 0E <br> Rio: 22 57S 43 12W <br> Paris: 48 48N 2 20E <br> Havana: 23 8N 82 23W <br> Melbourne: 37 47S 144 58E <br><br> SPACE to return";
-		console.log($div);
+		let div = document.getElementById("text-div")
+		div.innerHTML = "Zurich: 47 21N 8 31E <br> Dublin: 53 20N 6 15W <br> Tokyo: 35 40N 139 0E <br> Rio: 22 57S 43 12W <br> Paris: 48 48N 2 20E <br> Havana: 23 8N 82 23W <br> Melbourne: 37 47S 144 58E <br><br> SPACE to return";
+		console.log(div);
 	},
 	showDeskDetails(){
-		let $div = document.getElementById("text-div")
-		$div.innerHTML = "Desk Details";
-		console.log($div);
+		let div = document.getElementById("text-div")
+		div.innerHTML = "Desk Details";
+		console.log(div);
 	},
 	showChestDetails(){
-		let $div = document.getElementById("text-div")
-		$div.innerHTML = "Chest Details";
-		console.log($div);
+		let div = document.getElementById("text-div")
+		div.innerHTML = "<form><input type='text' id='list-item' placeholder='Enter Passcode'><button type='submit'>Enter</button></form>"
+		
+		console.log(div);
 	},
 	showBookcaseDetails(){
 		let $div = document.getElementById("text-div")
-		$div.innerHTML = "Bookcase Details";
-		console.log($div);
+		div.innerHTML = "Bookcase Details";
+		console.log(div);
 	},
 	showPicturesDetails(){
-		let $div = document.getElementById("text-div")
-		$div.innerHTML = "Pictures Details";
-		console.log($div);
+		let div = document.getElementById("text-div")
+		div.innerHTML = "Pictures Details";
+		console.log(div);
 	}
 
 	// drawInspectionZones(){
@@ -611,13 +612,13 @@ document.addEventListener('keydown', (e) => {
     console.log("inspect pictures!");
     game.showPicturesDetails();
   }
-  if([" "].includes(e.key) && userSquare.x > 308 && userSquare.x < 358 && userSquare.y > 298 && userSquare.y < 398) {
+  if([" "].includes(e.key) && userSquare.x > 300 && userSquare.x < 358 && userSquare.y > 298 && userSquare.y < 398) {
     console.log("inspect bookcase!");
     game.showBookcaseDetails();
   }
-  if([" "].includes(e.key) && userSquare.x > 170 && userSquare.x < 320 && userSquare.y > 180 && userSquare.y < 230) {
+  if([" "].includes(e.key) && userSquare.x > 170 && userSquare.x < 320 && userSquare.y > 178 && userSquare.y < 230) {
     console.log("inspect desk!");
-    game.showDeskDetails():
+    game.showDeskDetails();
   }
 })
 
