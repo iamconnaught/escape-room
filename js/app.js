@@ -4,14 +4,6 @@ const ctx = canvas.getContext('2d');
 let puzzleSolved = false;
 //set up text box
 
-// let text = "hey"
-// function drawText(){
-// 	ctxTextCanvas = document.getElementById('text-canvas')
-// 	ctxText = ctxTextCanvas.getContext('2d');
-// 	ctxText.font = '20px sans-serif';
-// 	ctxText.fillText(text, 10, 50);
-// }
-// drawText();
 
 const userSquare = {
 	x: 55,
@@ -32,16 +24,42 @@ const userSquare = {
 		ctx.rect(this.x,this.y,this.width,this.height);
 		ctx.fillStyle = this.color;
 		ctx.fill();
+		let direction = "up"
 		const playerSprite = new Image();
 		playerSprite.src = "css/30pxUser1NoBackUp.png"
 		ctx.drawImage(playerSprite,this.x, this.y);
-		// ctx.beginPath();
-		// ctx.rect(this.x + 4,this.y + 4,this.width -8,this.height -8);
-		// ctx.fillStyle = "blue";
-		// ctx.fill();
-		// ctx.beginPath()
-		// ctx.arc(this.x + 15, this.y + 6, 11, 0, Math.PI * 2 )
-		// ctx.fill();
+		if(this.direction.up === true){
+			playerSprite.src = "css/30pxUser1NoBackUp.png"
+			ctx.drawImage(playerSprite,this.x, this.y);
+		}
+		if (this.direction.down === true){
+			playerSprite.src = "css/30pxUser1NoBackDown.png"
+			ctx.drawImage(playerSprite,this.x, this.y);
+		}
+		if(this.direction.left === true){
+			playerSprite.src = "css/30pxUser1NoBackLeft.png"
+			ctx.drawImage(playerSprite,this.x, this.y);
+		}
+		if(this.direction.right === true){
+			playerSprite.src = "css/30pxUser1NoBackRight.png"
+			ctx.drawImage(playerSprite,this.x, this.y);	
+		}
+		if(this.direction.right === true && this.direction.up === true){
+			playerSprite.src = "css/30pxUser1NoBackUpRight.png"
+			ctx.drawImage(playerSprite,this.x, this.y);	
+		}
+		if(this.direction.left === true && this.direction.up === true){
+			playerSprite.src = "css/30pxUser1NoBackUpLeft.png"
+			ctx.drawImage(playerSprite,this.x, this.y);	
+		}
+		if(this.direction.right === true && this.direction.down === true){
+			playerSprite.src = "css/30pxUser1NoBackDownRight.png"
+			ctx.drawImage(playerSprite,this.x, this.y);	
+		}
+		if(this.direction.left === true && this.direction.down === true){
+			playerSprite.src = "css/30pxUser1NoBackDownLeft.png"
+			ctx.drawImage(playerSprite,this.x, this.y);	
+		}
 
 	},
 	setDirection(key){
@@ -185,22 +203,6 @@ const userSquare = {
 	},
 
 	isDirectlyBeneath(obst) {
-		// const keys = Object.keys(obstacles)
-		//console.log(keys);
-		// console.log(obst);
-
-
-
-		// ITERATE OVER obstacles
-
-		// 
-
-
-		// for(let i = 0; i < keys.length; i++){
-		// 		// console.log(keys[i]);
-
-		// 	const obst = obstacles[keys[i]]
-		// 	console.log(obst);
 			const obstBotEdge = obst.y + obst.height
 
 			if(
@@ -222,7 +224,8 @@ const userSquare = {
 			} 
 			else {
 				game.showDefaultText();
-				return false }
+				return false 
+			}
 		// }
 
 
@@ -270,69 +273,20 @@ const userSquare = {
 			}
 	},
 	move(){ 
-		//console.log("move");
-
 		if(this.canMoveUp()) {
 			this.y -= this.speed;
-			// this.isDirectlyBeneath(obstacles.map)
 		} 
 		if(this.canMoveDown()) {
 			this.y += this.speed;
 		} 
 		if(this.canMoveLeft()) {
 			this.x -= this.speed;
-			// this.isDirectlyRightOf();
 		} 
 		if(this.canMoveRight()) {
-			this.x += this.speed;
-			// this.isDirectlyLeftOf();
+			this.x += this.speed;	
 		} 
-		// if(this.direction.left && this.x - this.speed > 0) { console.log("left");
-		// 	for(let i = 0; i < keys.length; i++){
-		// 		if(this.checkCollision(obstacles[keys[i]]) == true 
-		// 			&& this.x - this.speed < obstacles[keys[i]].x + obstacles[keys[i]].width) {
-
-		// 		} else {
-		// 			this.x -= this.speed;
-		// 		}
-		// 	}
-		// }
-		// if(this.direction.down && this.y + this.height + this.speed < canvas.height) { console.log("down");
-		// 	for(let i = 0; i < keys.length; i++){
-		// 		if(this.checkCollision(obstacles[keys[i]]) == true 
-		// 			&& this.y + this.height + this.speed > obstacles[keys[i]].y) {
-
-		// 		} else {
-		// 			this.y += this.speed;
-		// 		}
-		// 	}
-		// }
-		// if(this.direction.right && this.x + this.width + this.speed < canvas.width) { console.log("right");
-		// 	for(let i = 0; i < keys.length; i++){
-		// 		if(this.checkCollision(obstacles[keys[i]]) == true 
-		// 			&& this.x + this.width + this.speed > obstacles[keys[i]].x) {
-
-		// 		} else {
-		// 			this.x += this.speed;
-		// 		}
-		// 	}
-		// }
 	},
-	// checkCollision(thing) {
-	// 	const keys = Object.keys(obstacles)
-	//     for(let i = 0; i < keys.length; i++){
-	// 	    if(
-	// 	      this.x + this.width > obstacles[keys[i]].x &&
-	// 	      this.x < obstacles[keys[i]].x + obstacles[keys[i]].width && 
-	// 	      this.y + this.height > obstacles[keys[i]].y &&
-	// 	      this.y < obstacles[keys[i]].y + obstacles[keys[i]].height
-	// 	    ) {
-	// 	      console.log('collision');
-	// 	      return true
-	// 	    }  
-	// 	    else return false
-	//   	}
-	// }
+	
 
 }
 userSquare.draw();
@@ -639,73 +593,6 @@ const obstacles = {
 	},
 }
 
-// const inspectionZones = {
-// 	deskZone: {
-// 		x: 170,
-// 		y: 180,
-// 		width:150,
-// 		height: 50,
-// 		color: "lightblue",
-// 		draw() {
-// 			ctx.beginPath();
-// 			ctx.rect(this.x,this.y,this.width,this.height);
-// 			ctx.fillStyle = this.color;
-// 			ctx.fill();
-// 		}
-// 	},
-// 	bookcaseZone: {
-// 		x: 308,
-// 		y: 298,
-// 		width: 50,
-// 		height: 100,
-// 		color: "lightblue",
-// 		draw() {
-// 			ctx.beginPath();
-// 			ctx.rect(this.x,this.y,this.width,this.height);
-// 			ctx.fillStyle = this.color;
-// 			ctx.fill();
-// 		}
-// 	},
-// 	mapZone: {
-// 		x: 150,
-// 		y: 0,
-// 		width: 100,
-// 		height: 50,
-// 		draw() {
-// 			ctx.beginPath();
-// 			ctx.rect(this.x,this.y,this.width,this.height);
-// 			ctx.fillStyle = this.color;
-// 			ctx.fill();
-// 		}
-// 	},
-// 	picturesZone: {
-// 		x: 0,
-// 		y: 50,
-// 		width: 50,
-// 		height: 80,
-// 		draw() {
-// 			ctx.beginPath();
-// 			ctx.rect(this.x,this.y,this.width,this.height);
-// 			ctx.fillStyle = this.color;
-// 			ctx.fill();
-// 		}
-// 	},
-// 	chestZone: {
-// 		x: 42,
-// 		y: 200,
-// 		width: 50,
-// 		height: 80,
-// 		draw() {
-// 			ctx.beginPath();
-// 			ctx.rect(this.x,this.y,this.width,this.height);
-// 			ctx.fillStyle = this.color;
-// 			ctx.fill();
-// 		}
-// 	}
-
-// }
-
-
 const init = () => {
 	 for (key in obstacles){
 	 	// obstacles.key.draw()
@@ -724,28 +611,6 @@ const init = () => {
 	
 }
 init()
-// const keys2 = Object.keys2(inspectionZones)
-
-// for(let j = 0; j < keys2.length; j++){
-// 			inspectionZones[keys2[i]].draw()
-// 		}
-// const desk = {
-// 	x: 120,
-// 	y: 100,
-// 	width: 150,
-// 	height: 80,
-// 	color: "black",
-// 	draw(){
-// 		ctx.beginPath();
-// 		ctx.rect(this.x,this.y,this.width,this.height);
-// 		ctx.fillStyle = this.color;
-// 		ctx.fill();
-// 	}
-
-// }
-// obstacles.desk.draw();
-
-
 
 const game = {
 	drawObstacles() {
@@ -760,7 +625,7 @@ const game = {
 	},
 	showMapDetails(){
 		let div = document.getElementById("text-div")
-		div.innerHTML = "Zurich: 47 21N 8 31E <br> Dublin: 53 20N 6 15W <br> Tokyo: 35 40N 139 0E <br> Rio: 22 57S 43 12W <br> Melbourne: 37 47S 144 58E <br> Paris: 48 48N 2 20E <br> Havana: 23 8N 82 23W <br><br> SPACE to return";
+		div.innerHTML = "Zurich: 47 21N 8 31E <br> Dublin: 53 20N 6 15W <br> Tokyo: 35 40N 139 0E <br> Rio: 22 57S 43 12W <br> Melbourne: 37 47S 144 58E <br> Paris: 48 48N 2 20E <br> Havana: 23 8N 82 23W";
 		console.log(div);
 	},
 	showDeskDetails(){
@@ -805,14 +670,8 @@ const game = {
 		let div = document.getElementById("text-div")
 		div.innerHTML = "<img src='https://images-na.ssl-images-amazon.com/images/I/51N2VtqEOSL._AC_SY400_.jpg' height='180px'>"
 	}
-
-	// drawInspectionZones(){
-	// 	for(let j = 0; j < keys2.length; j++){
-	// 		inspectionZones[keys2[i]].draw()
-	// 	}
-	// }
 }
-//game.showDefaultText();
+
 
 function animate(){
 	if (puzzleSolved === false){
@@ -834,11 +693,6 @@ function clearCanvas() {
 	ctx.clearRect(0, 0, canvas.width, canvas.height)
 }
 
-// function clearTextCanvas() {
-// 	ctxText.clearRect(0, 0, ctxTextCanvas.width, ctxTextCanvas.height)
-// 	console.log("clear");
-
-// }
 
 
 
@@ -891,9 +745,4 @@ document.addEventListener('keydown', (e) => {
   }
 })
 
-// document.addEventListener('keyup', (e) => {
-// 	if(e.key == " "){
-// 		game.showDefaultText();
-// 	}
-// })
 
