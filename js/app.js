@@ -409,12 +409,108 @@ const obstacles = {
 		y: 298,
 		width: 40,
 		height: 100,
-		color: "black",
+		color: "darkslategrey",
 		draw(){
 			ctx.beginPath();
 			ctx.rect(this.x,this.y,this.width,this.height);
 			ctx.fillStyle = this.color;
 			ctx.fill();
+			ctx.beginPath();
+			ctx.rect(this.x + 5,this.y + 10,30,5);
+			ctx.fillStyle = "ivory";
+			ctx.fill();
+			ctx.beginPath();
+			ctx.rect(this.x + 5,this.y + 10,30,5);
+			ctx.strokeStyle = "black";
+			ctx.stroke();
+			ctx.beginPath();
+			ctx.rect(this.x + 8,this.y + 15,27,6);
+			ctx.fillStyle = "floralwhite";
+			ctx.fill();
+			ctx.beginPath();
+			ctx.rect(this.x + 8,this.y + 15,27,6);
+			ctx.strokeStyle = "black";
+			ctx.stroke();
+			ctx.beginPath();
+			ctx.rect(this.x + 8,this.y + 21,27,6);
+			ctx.fillStyle = "goldenrod";
+			ctx.fill();
+			ctx.beginPath();
+			ctx.rect(this.x + 8,this.y + 21,27,6);
+			ctx.strokeStyle = "black";
+			ctx.stroke();
+			ctx.beginPath();
+			ctx.rect(this.x + 5,this.y + 27,30,5);
+			ctx.fillStyle = "ivory";
+			ctx.fill();
+			ctx.beginPath();
+			ctx.rect(this.x + 5,this.y + 27,30,5);
+			ctx.strokeStyle = "black";
+			ctx.stroke();
+			ctx.beginPath();
+			ctx.rect(this.x + 5,this.y + 32,30,5);
+			ctx.fillStyle = "khaki";
+			ctx.fill();
+			ctx.beginPath();
+			ctx.rect(this.x + 5,this.y + 32,30,5);
+			ctx.strokeStyle = "black";
+			ctx.stroke();
+			ctx.beginPath();
+			ctx.rect(this.x + 5,this.y + 42,30,50);
+			ctx.fillStyle = "ivory";
+			ctx.fill();
+			ctx.beginPath();
+			ctx.rect(this.x + 5,this.y + 42,30,25);
+			ctx.strokeStyle = "black";
+			ctx.stroke();
+			ctx.beginPath();
+			ctx.rect(this.x + 5,this.y + 67,30,25);
+			ctx.strokeStyle = "black";
+			ctx.stroke();
+			ctx.beginPath();
+			ctx.rect(this.x + 8, this.y + 45, 20, 18 )
+			ctx.fillStyle = "lightblue";
+			ctx.fill();
+			ctx.beginPath();
+			ctx.rect(this.x + 8, this.y + 45, 20, 18 )
+			ctx.strokeStyle = "black";
+			ctx.stroke();
+			ctx.beginPath();
+			ctx.moveTo(this.x + 32, this.y + 48);
+			ctx.lineTo(this.x + 32, this.y + 60);
+			ctx.stroke();
+			ctx.beginPath();
+			ctx.moveTo(this.x + 8, this.y +72);
+			ctx.lineTo(this.x + 8, this.y + 89);
+			ctx.stroke();
+			ctx.beginPath();
+			ctx.moveTo(this.x + 12, this.y +72);
+			ctx.lineTo(this.x + 12, this.y + 89);
+			ctx.stroke();
+			ctx.beginPath();
+			ctx.moveTo(this.x + 16, this.y +72);
+			ctx.lineTo(this.x + 16, this.y + 89);
+			ctx.stroke();
+			ctx.beginPath();
+			ctx.moveTo(this.x + 20, this.y +72);
+			ctx.lineTo(this.x + 20, this.y + 89);
+			ctx.stroke();
+			ctx.beginPath();
+			ctx.moveTo(this.x + 24, this.y +72);
+			ctx.lineTo(this.x + 24, this.y + 89);
+			ctx.stroke();
+			ctx.beginPath();
+			ctx.moveTo(this.x + 28, this.y +72);
+			ctx.lineTo(this.x + 28, this.y + 89);
+			ctx.stroke();
+			ctx.beginPath();
+			ctx.moveTo(this.x + 32, this.y +72);
+			ctx.lineTo(this.x + 32, this.y + 89);
+			ctx.stroke();
+			ctx.beginPath();
+			ctx.moveTo(this.x + 36, this.y +72);
+			ctx.lineTo(this.x + 36, this.y + 89);
+			ctx.stroke();
 		}
 	},
 	chest: {
@@ -422,12 +518,36 @@ const obstacles = {
 		y: 200,
 		width: 40,
 		height: 80,
-		color: "black",
+		color: "Brown",
 		draw(){
 			ctx.beginPath();
 			ctx.rect(this.x,this.y,this.width,this.height);
 			ctx.fillStyle = this.color;
 			ctx.fill();
+			ctx.beginPath();
+			ctx.rect(this.x,this.y + (this.height / 10) * 2,this.width,this.height / 10);
+			ctx.fillStyle = "maroon";
+			ctx.fill();
+			ctx.beginPath();
+			ctx.rect(this.x,this.y + (this.height / 10) * 2,this.width,this.height / 10);
+			ctx.strokeStyle = "black";
+			ctx.stroke();
+			ctx.beginPath();
+			ctx.rect(this.x,this.y + (this.height / 10) * 7,this.width,this.height / 10);
+			ctx.fillStyle = "maroon";
+			ctx.fill();
+			ctx.beginPath();
+			ctx.rect(this.x,this.y + (this.height / 10) * 7,this.width,this.height / 10);
+			ctx.strokeStyle = "black";
+			ctx.stroke();
+			ctx.beginPath();
+			ctx.rect(this.x + this.width - 10,this.y + (this.height / 10) * 4.5, 10, 10);
+			ctx.fillStyle = "gold";
+			ctx.fill();
+			ctx.beginPath();
+			ctx.rect(this.x + this.width - 10,this.y + (this.height / 10) * 4.5, 10, 10);
+			ctx.strokeStyle = "black";
+			ctx.stroke();
 		}
 	},
 	map: {
@@ -436,12 +556,16 @@ const obstacles = {
 		y: 0,
 		width: 100,
 		height: 5,
-		color: "black",
+		color: "peru",
 		draw(){
 			ctx.beginPath();
 			ctx.rect(this.x,this.y,this.width,this.height);
 			ctx.fillStyle = this.color;
 			ctx.fill();
+			ctx.beginPath();
+			ctx.rect(this.x,this.y,this.width,this.height);
+			ctx.strokeStyle = "black";
+			ctx.stroke();
 		}
 	},
 	pictures: {
