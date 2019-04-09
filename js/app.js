@@ -15,7 +15,7 @@ let puzzleSolved = false;
 
 const userSquare = {
 	x: 55,
-	y: 0,
+	y: 300,
 	width: 50,
 	height: 50,
 	color: "blue",
@@ -333,13 +333,19 @@ const obstacles = {
 		y: 100,
 		width: 150,
 		height: 80,
-		color: "black",
+		color: "peru",
 		draw(){
 			ctx.beginPath();
 			ctx.rect(this.x,this.y,this.width,this.height);
 			ctx.fillStyle = this.color;
 			ctx.fill();
 		}
+		// drawDetails(){
+		// 	ctx.beginPath();
+		// 	ctx.rect(this.x, this.y, this.width, this.height);
+		// 	ctx.strokeStyle = "black"
+		// 	ctx.stroke();
+		// }
 	},
 	bookcase: {
 		x: 358,
@@ -508,7 +514,7 @@ const game = {
 	drawObstacles() {
 		const keys = Object.keys(obstacles)
 		for(let i = 0; i < keys.length; i++) {
-			obstacles[keys[i]].draw()
+			obstacles[keys[i]].draw();
 		}
 	},
 	showDefaultText(){
@@ -517,7 +523,7 @@ const game = {
 	},
 	showMapDetails(){
 		let div = document.getElementById("text-div")
-		div.innerHTML = "Zurich: 47 21N 8 31E <br> Dublin: 53 20N 6 15W <br> Tokyo: 35 40N 139 0E <br> Rio: 22 57S 43 12W <br> Paris: 48 48N 2 20E <br> Havana: 23 8N 82 23W <br> Melbourne: 37 47S 144 58E <br><br> SPACE to return";
+		div.innerHTML = "Zurich: 47 21N 8 31E <br> Dublin: 53 20N 6 15W <br> Tokyo: 35 40N 139 0E <br> Rio: 22 57S 43 12W <br> Melbourne: 37 47S 144 58E <br> Paris: 48 48N 2 20E <br> Havana: 23 8N 82 23W <br><br> SPACE to return";
 		console.log(div);
 	},
 	showDeskDetails(){
@@ -536,11 +542,12 @@ const game = {
 
 		document.addEventListener('submit', (e)=> {
 			e.preventDefault();
-			if(codeInput.value == 2222){
+			if(codeInput.value === '374714458' || codeInput.value === '37 47 144 58'){
 				console.log("you did it");
 				puzzleSolved = true;
 
 			} else {
+				div.innerHTML = "Hmm... Something is missing"
 				console.log("wrong");
 			}
 		})
