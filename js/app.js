@@ -16,8 +16,8 @@ let puzzleSolved = false;
 const userSquare = {
 	x: 55,
 	y: 300,
-	width: 50,
-	height: 50,
+	width: 30,
+	height: 30,
 	color: "coral",
 	speed: 2,
 	closeness: 5,
@@ -32,7 +32,7 @@ const userSquare = {
 		ctx.rect(this.x,this.y,this.width,this.height);
 		ctx.fillStyle = this.color;
 		ctx.fill();
-		
+
 	},
 	setDirection(key){
 		//console.log(key);
@@ -337,6 +337,7 @@ const obstacles = {
 		color: "sienna",
 		draw(){
 			ctx.beginPath();
+			
 			ctx.rect(this.x,this.y,this.width,this.height);
 			ctx.fillStyle = this.color;
 			ctx.fill();
@@ -402,6 +403,41 @@ const obstacles = {
 			ctx.strokeStyle = "black"
 			ctx.moveTo(this.x + 80, this.y + 60);
 			ctx.lineTo(this.x + 86, this.y + 60);
+			ctx.stroke();
+			ctx.beginPath();
+			ctx.lineWidth = 5;
+			ctx.arc(this.x + 30, this.y + 30, 15, 0, 2*Math.PI);
+			ctx.strokeStyle = "papayawhip";
+			ctx.stroke();
+			ctx.lineWidth = 2;
+			ctx.beginPath();
+			ctx.moveTo(this.x + 30, this.y + 28)
+			ctx.lineTo(this.x + 30, this.y + 15)
+			ctx.strokeStyle = "black"
+			ctx.stroke();
+			ctx.beginPath();
+			ctx.moveTo(this.x + 30, this.y + 32)
+			ctx.lineTo(this.x + 30, this.y + 45)
+			ctx.strokeStyle = "black"
+			ctx.stroke();
+			ctx.beginPath();
+			ctx.moveTo(this.x + 15, this.y + 30)
+			ctx.lineTo(this.x + 28, this.y + 30)
+			ctx.strokeStyle = "black"
+			ctx.stroke();
+			ctx.beginPath();
+			ctx.moveTo(this.x + 45, this.y + 30)
+			ctx.lineTo(this.x + 32, this.y + 30)
+			ctx.strokeStyle = "black"
+			ctx.stroke();
+			ctx.beginPath();
+			ctx.arc(this.x +30, this.y +30, 5,0, 2*Math.PI);
+			ctx.fillStyle = "gold";
+			ctx.fill();
+			ctx.beginPath();
+			ctx.moveTo(this.x + 110, this.y + 15);
+			ctx.lineTo(this.x + 108, this.y + 35);
+			ctx.strokeStyle = "black"
 			ctx.stroke();
 		}
 	},
@@ -573,7 +609,7 @@ const obstacles = {
 		x: 0,
 		y: 50,
 		width: 5,
-		height: 38,
+		height: 80,
 		color: "black",
 		draw(){
 			ctx.beginPath();
@@ -581,8 +617,8 @@ const obstacles = {
 			ctx.fillStyle = this.color;
 			ctx.fill();
 			ctx.beginPath();
-			ctx.rect(this.x,this.y + this.height + 4,this.width,this.height);
-			ctx.fillStyle = this.color;
+			ctx.rect(this.x,this.y + this.height / 2, this.width, 4);
+			ctx.fillStyle = "burlywood";
 			ctx.fill();
 		}
 	},
