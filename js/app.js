@@ -333,19 +333,76 @@ const obstacles = {
 		y: 100,
 		width: 150,
 		height: 80,
-		color: "peru",
+		color: "sienna",
 		draw(){
 			ctx.beginPath();
 			ctx.rect(this.x,this.y,this.width,this.height);
 			ctx.fillStyle = this.color;
 			ctx.fill();
+			ctx.beginPath();
+			ctx.rect(this.x, this.y, this.width, this.height);
+			ctx.strokeStyle = "saddlebrown"
+			ctx.stroke();
+			ctx.beginPath();
+			ctx.rect(this.x, this.y, this.width, this.height / 5);
+			ctx.strokeStyle = "saddlebrown"
+			ctx.stroke();
+			ctx.beginPath();
+			ctx.rect(this.x, this.y + this.height / 5, this.width, this.height / 5);
+			ctx.strokeStyle = "saddlebrown"
+			ctx.stroke();
+			ctx.beginPath();
+			ctx.rect(this.x, this.y + (this.height / 5) * 2, this.width, this.height / 5);
+			ctx.strokeStyle = "saddlebrown"
+			ctx.stroke();
+			ctx.beginPath();
+			ctx.rect(this.x, this.y + (this.height / 5) * 3, this.width, this.height / 5);
+			ctx.strokeStyle = "saddlebrown"
+			ctx.stroke();
+			ctx.beginPath();
+			ctx.rect(this.x, this.y + (this.height / 5) * 4, this.width, this.height / 5);
+			ctx.strokeStyle = "saddlebrown"
+			ctx.stroke();
+			ctx.beginPath();
+			ctx.rect(this.x + 70, this.y + 30, 20, 40);
+			ctx.fillStyle = "ivory"
+			ctx.fill();
+			ctx.beginPath();
+			ctx.strokeStyle = "black"
+			ctx.moveTo(this.x + 72, this.y + 34);
+			ctx.lineTo(this.x + 80, this.y + 34);
+			ctx.stroke();
+			ctx.beginPath();
+			ctx.strokeStyle = "black"
+			ctx.moveTo(this.x + 72, this.y + 38);
+			ctx.lineTo(this.x + 86, this.y + 38);
+			ctx.stroke();
+			ctx.beginPath();
+			ctx.strokeStyle = "black"
+			ctx.moveTo(this.x + 72, this.y + 42);
+			ctx.lineTo(this.x + 86, this.y + 42);
+			ctx.stroke();
+			ctx.beginPath();
+			ctx.strokeStyle = "black"
+			ctx.moveTo(this.x + 72, this.y + 46);
+			ctx.lineTo(this.x + 86, this.y + 46);
+			ctx.stroke();
+			ctx.beginPath();
+			ctx.strokeStyle = "black"
+			ctx.moveTo(this.x + 72, this.y + 50);
+			ctx.lineTo(this.x + 86, this.y + 50);
+			ctx.stroke();
+			ctx.beginPath();
+			ctx.strokeStyle = "black"
+			ctx.moveTo(this.x + 72, this.y + 54);
+			ctx.lineTo(this.x + 86, this.y + 54);
+			ctx.stroke();
+			ctx.beginPath();
+			ctx.strokeStyle = "black"
+			ctx.moveTo(this.x + 80, this.y + 60);
+			ctx.lineTo(this.x + 86, this.y + 60);
+			ctx.stroke();
 		}
-		// drawDetails(){
-		// 	ctx.beginPath();
-		// 	ctx.rect(this.x, this.y, this.width, this.height);
-		// 	ctx.strokeStyle = "black"
-		// 	ctx.stroke();
-		// }
 	},
 	bookcase: {
 		x: 358,
