@@ -18,7 +18,7 @@ const userSquare = {
 	y: 300,
 	width: 30,
 	height: 30,
-	color: "coral",
+	color: "burlywood",
 	speed: 2,
 	closeness: 5,
 	direction: {
@@ -32,6 +32,16 @@ const userSquare = {
 		ctx.rect(this.x,this.y,this.width,this.height);
 		ctx.fillStyle = this.color;
 		ctx.fill();
+		const playerSprite = new Image();
+		playerSprite.src = "css/30pxUser1NoBackUp.png"
+		ctx.drawImage(playerSprite,this.x, this.y);
+		// ctx.beginPath();
+		// ctx.rect(this.x + 4,this.y + 4,this.width -8,this.height -8);
+		// ctx.fillStyle = "blue";
+		// ctx.fill();
+		// ctx.beginPath()
+		// ctx.arc(this.x + 15, this.y + 6, 11, 0, Math.PI * 2 )
+		// ctx.fill();
 
 	},
 	setDirection(key){
@@ -331,13 +341,12 @@ const obstacles = {
 	desk: {
 		name: "desk",
 		x: 170,
-		y: 100,
+		y: 101,
 		width: 150,
 		height: 80,
 		color: "sienna",
 		draw(){
 			ctx.beginPath();
-			
 			ctx.rect(this.x,this.y,this.width,this.height);
 			ctx.fillStyle = this.color;
 			ctx.fill();
@@ -434,6 +443,12 @@ const obstacles = {
 			ctx.arc(this.x +30, this.y +30, 5,0, 2*Math.PI);
 			ctx.fillStyle = "gold";
 			ctx.fill();
+			ctx.beginPath();
+			ctx.lineWidth = 5;
+			ctx.arc(this.x + 30, this.y + 30, 15, 0, 2*Math.PI);
+			ctx.strokeStyle = "papayawhip";
+			ctx.stroke();
+			ctx.lineWidth = 2;
 			ctx.beginPath();
 			ctx.moveTo(this.x + 110, this.y + 15);
 			ctx.lineTo(this.x + 108, this.y + 35);
