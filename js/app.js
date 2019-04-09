@@ -18,7 +18,7 @@ const userSquare = {
 	y: 300,
 	width: 50,
 	height: 50,
-	color: "blue",
+	color: "coral",
 	speed: 2,
 	closeness: 5,
 	direction: {
@@ -32,6 +32,7 @@ const userSquare = {
 		ctx.rect(this.x,this.y,this.width,this.height);
 		ctx.fillStyle = this.color;
 		ctx.fill();
+		
 	},
 	setDirection(key){
 		//console.log(key);
@@ -340,10 +341,6 @@ const obstacles = {
 			ctx.fillStyle = this.color;
 			ctx.fill();
 			ctx.beginPath();
-			ctx.rect(this.x, this.y, this.width, this.height);
-			ctx.strokeStyle = "saddlebrown"
-			ctx.stroke();
-			ctx.beginPath();
 			ctx.rect(this.x, this.y, this.width, this.height / 5);
 			ctx.strokeStyle = "saddlebrown"
 			ctx.stroke();
@@ -362,6 +359,10 @@ const obstacles = {
 			ctx.beginPath();
 			ctx.rect(this.x, this.y + (this.height / 5) * 4, this.width, this.height / 5);
 			ctx.strokeStyle = "saddlebrown"
+			ctx.stroke();
+			ctx.beginPath();
+			ctx.rect(this.x, this.y, this.width, this.height);
+			ctx.strokeStyle = "black"
 			ctx.stroke();
 			ctx.beginPath();
 			ctx.rect(this.x + 70, this.y + 30, 20, 40);
