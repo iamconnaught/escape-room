@@ -572,11 +572,15 @@ const obstacles = {
 		x: 0,
 		y: 50,
 		width: 5,
-		height: 80,
+		height: 38,
 		color: "black",
 		draw(){
 			ctx.beginPath();
 			ctx.rect(this.x,this.y,this.width,this.height);
+			ctx.fillStyle = this.color;
+			ctx.fill();
+			ctx.beginPath();
+			ctx.rect(this.x,this.y + this.height + 4,this.width,this.height);
 			ctx.fillStyle = this.color;
 			ctx.fill();
 		}
