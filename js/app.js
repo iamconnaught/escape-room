@@ -678,22 +678,22 @@ const game = {
 		let div = document.getElementById("text-div")
 		div.innerHTML = "Daniel is missing.<br>He had contacted you shortly before his disappearance, mentioning a relic he had stolen.<br>He didn't leave behind much information.<br>The people he stole from are looking for the relic and its your job to put the pieces of information together and find it.<br>Start the Game, hit ENTER"
 		ctx.beginPath();
-		ctx.rect(25,25,350,250);
-		ctx.fillStyle = "lightblue";
-		ctx.fill();
-		ctx.beginPath();
-		ctx.rect(25,25,350,250);
-		ctx.strokeStyle = "black";
-		ctx.stroke();
-		const introBackground = new Image();
-		introBackground.src = "css/mountains.jpg";
-		ctx.drawImage(introBackground, 100, 200);
-		const introPerson = new Image();
-		introPerson.src = "css/danielHiking.png";
-		ctx.drawImage(introPerson, 150, 100);
+		// ctx.rect(25,25,350,250);
+		// ctx.fillStyle = "lightblue";
+		// ctx.fill();
+		// ctx.beginPath();
+		// ctx.rect(25,25,350,250);
+		// ctx.strokeStyle = "black";
+		// ctx.stroke();
+		// const introBackground = new Image();
+		// introBackground.src = "css/mountains.jpg";
+		// ctx.drawImage(introBackground, 100, 200);
+		// const introPerson = new Image();
+		// introPerson.src = "css/danielHiking.png";
+		// ctx.drawImage(introPerson, 150, 100);
 		ctx.fillStyle = "black"
 		ctx.font = "50px Open Sans"
-		ctx.fillText("MISSING", 100, 350)
+		ctx.fillText("MISSING", 100, 150)
 	}
 
 }
