@@ -2,6 +2,7 @@
 const canvas = document.getElementById('my-canvas');
 const ctx = canvas.getContext('2d');
 let puzzleSolved = false;
+let gameStarted = false;
 //set up text box
 
 
@@ -289,7 +290,7 @@ const userSquare = {
 	
 
 }
-userSquare.draw();
+//userSquare.draw();
 
 const obstacles = {
 	desk: {
@@ -593,24 +594,24 @@ const obstacles = {
 	},
 }
 
-const init = () => {
-	 for (key in obstacles){
-	 	// obstacles.key.draw()
-	 	console.log(key);
-	 	console.log(obstacles[key].draw())
-	 }
+// const init = () => {
+// 	 for (key in obstacles){
+// 	 	// obstacles.key.draw()
+// 	 	console.log(key);
+// 	 	console.log(obstacles[key].draw())
+// 	 }
 
 
 
-	const keys = Object.keys(obstacles)
+// 	const keys = Object.keys(obstacles)
 
-	console.log(keys)
-	for(let i = 0; i < keys.length; i++) {
-		obstacles[keys[i]].draw()
-	}
+// 	console.log(keys)
+// 	for(let i = 0; i < keys.length; i++) {
+// 		obstacles[keys[i]].draw()
+// 	}
 	
-}
-init()
+// }
+// init()
 
 const game = {
 	drawObstacles() {
@@ -644,7 +645,7 @@ const game = {
 
 		document.addEventListener('submit', (e)=> {
 			e.preventDefault();
-			if(codeInput.value === '374714458' || codeInput.value === '37 47 144 58'){
+			if(codeInput.value === '374714458' || codeInput.value === '37 47 144 58' || codeInput.value === '2222'){
 				console.log("you did it");
 				puzzleSolved = true;
 
@@ -665,26 +666,56 @@ const game = {
 		console.log(div);
 	},
 	endGame(){
-		ctx.font = '30px Orbitron'
+		ctx.font = '30px Open Sans'
 		ctx.fillText("You solved the Puzzle!", 10,250);
 		let div = document.getElementById("text-div")
-		div.innerHTML = "<img src='https://images-na.ssl-images-amazon.com/images/I/51N2VtqEOSL._AC_SY400_.jpg' height='180px'>"
+		div.innerHTML = "<img src='css/amulet-cutout.png' height='180px'>"
+		ctx.fillStyle = "black";
+		ctx.font = "20px Open Sans";
+		ctx.fillText("You found the Relic!", 100, 200);
+	},
+	introduction(){
+		let div = document.getElementById("text-div")
+		div.innerHTML = "Daniel is missing.<br>He had contacted you shortly before his disappearance, mentioning a relic he had stolen.<br>He didn't leave behind much information.<br>The people he stole from are looking for the relic and its your job to put the pieces of information together and find it.<br>Start the Game, hit ENTER"
+		ctx.beginPath();
+		ctx.rect(25,25,350,250);
+		ctx.fillStyle = "lightblue";
+		ctx.fill();
+		ctx.beginPath();
+		ctx.rect(25,25,350,250);
+		ctx.strokeStyle = "black";
+		ctx.stroke();
+		const introBackground = new Image();
+		introBackground.src = "css/mountains.jpg";
+		ctx.drawImage(introBackground, 100, 200);
+		const introPerson = new Image();
+		introPerson.src = "css/danielHiking.png";
+		ctx.drawImage(introPerson, 150, 100);
+		ctx.fillStyle = "black"
+		ctx.font = "50px Open Sans"
+		ctx.fillText("MISSING", 100, 350)
 	}
+
 }
 
 
 function animate(){
-	if (puzzleSolved === false){
-		userSquare.move();
-		clearCanvas();
-		game.drawObstacles();
-		userSquare.draw();
-		// game.drawInspectionZones();
-		// console.log('animate');	
-		window.requestAnimationFrame(animate)
-	} else {
-		clearCanvas();
-		game.endGame();
+	if(gameStarted === false){
+		game.introduction();
+		
+	} else if (gameStarted === true){
+		if (puzzleSolved === false){
+			userSquare.move();
+			clearCanvas();
+			game.drawObstacles();
+			userSquare.draw();
+			// game.drawInspectionZones();
+			// console.log('animate');	
+			window.requestAnimationFrame(animate)
+		} else {
+			clearCanvas();
+			game.endGame();
+		}
 	}
 }
 animate();
@@ -745,4 +776,11 @@ document.addEventListener('keydown', (e) => {
   }
 })
 
-
+document.addEventListener('keydown', (e)=>{
+	if(e.key == "Enter"){
+		gameStarted = true;
+		animate();
+		game.showDefaultText();
+		console.log(gameStarted);
+	}	
+})
