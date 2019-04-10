@@ -645,7 +645,7 @@ const game = {
 
 		document.addEventListener('submit', (e)=> {
 			e.preventDefault();
-			if(codeInput.value === '374714458' || codeInput.value === '37 47 144 58' || codeInput.value === '2222'){
+			if(codeInput.value === '2222'|| codeInput.value === '37 47 144 58' ||  codeInput.value === '374714458'){
 				console.log("you did it");
 				puzzleSolved = true;
 
@@ -667,7 +667,7 @@ const game = {
 	},
 	endGame(){
 		ctx.font = '30px Open Sans'
-		ctx.fillText("You solved the Puzzle!", 10,250);
+
 		let div = document.getElementById("text-div")
 		div.innerHTML = "<img src='css/amulet-cutout.png' height='180px'>"
 		ctx.fillStyle = "black";
