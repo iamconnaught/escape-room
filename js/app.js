@@ -6,6 +6,7 @@ let gameStarted = false;
 //set up text box
 
 
+// User Object//
 const userSquare = {
 	x: 55,
 	y: 300,
@@ -292,6 +293,8 @@ const userSquare = {
 }
 //userSquare.draw();
 
+
+// Obstacles Object//
 const obstacles = {
 	desk: {
 		name: "desk",
@@ -613,6 +616,7 @@ const obstacles = {
 // }
 // init()
 
+// Game Object//
 const game = {
 	drawObstacles() {
 		const keys = Object.keys(obstacles)
@@ -645,7 +649,7 @@ const game = {
 
 		document.addEventListener('submit', (e)=> {
 			e.preventDefault();
-			if(codeInput.value === '2222'|| codeInput.value === '37 47 144 58' ||  codeInput.value === '374714458'){
+			if(codeInput.value === '37 47 144 58' ||  codeInput.value === '374714458'){
 				console.log("you did it");
 				puzzleSolved = true;
 
@@ -678,27 +682,27 @@ const game = {
 		let div = document.getElementById("text-div")
 		div.innerHTML = "Daniel is missing.<br>He had contacted you shortly before his disappearance, mentioning a relic he had stolen.<br>He didn't leave behind much information.<br>The people he stole from are looking for the relic and its your job to put the pieces of information together and find it.<br>Start the Game, hit ENTER"
 		ctx.beginPath();
-		// ctx.rect(25,25,350,250);
-		// ctx.fillStyle = "lightblue";
-		// ctx.fill();
-		// ctx.beginPath();
-		// ctx.rect(25,25,350,250);
-		// ctx.strokeStyle = "black";
-		// ctx.stroke();
-		// const introBackground = new Image();
-		// introBackground.src = "css/mountains.jpg";
-		// ctx.drawImage(introBackground, 100, 200);
-		// const introPerson = new Image();
-		// introPerson.src = "css/danielHiking.png";
-		// ctx.drawImage(introPerson, 150, 100);
+		ctx.rect(25,25,350,250);
+		ctx.fillStyle = "lightblue";
+		ctx.fill();
+		ctx.beginPath();
+		ctx.rect(25,25,350,250);
+		ctx.strokeStyle = "black";
+		ctx.stroke();
+		const introBackground = new Image();
+		introBackground.src = "file:///Users/iamconnaught/june-bugs/4-4-canvas/escape-room/css/mountains-cutout.png";
+		ctx.drawImage(introBackground, 100, 200);
+		const introPerson = new Image();
+		introPerson.src = "/css/danielHiking.png";
+		ctx.drawImage(introPerson, 150, 100);
 		ctx.fillStyle = "black"
 		ctx.font = "50px Open Sans"
-		ctx.fillText("MISSING", 100, 150)
+		ctx.fillText("MISSING", 100, 350)
 	}
 
 }
 
-
+// Animate Function//
 function animate(){
 	if(gameStarted === false){
 		game.introduction();
@@ -727,7 +731,7 @@ function clearCanvas() {
 
 
 
-
+//Event Listeners//
 document.addEventListener('keyup', (e) => {
   if(["w", "a", "s", "d"].includes(e.key)) {
     userSquare.unsetDirection(e.key) 
