@@ -1,0 +1,23 @@
+{
+  "name": "escape-room",
+  "version": "1.0.0",
+  "description": "Daniel is missing.",
+  "main": "app.js",
+  "dependencies": {
+    "gh-pages": "^2.0.1"
+  },
+  "devDependencies": {},
+  "scripts": {
+    "deploy": "gh-pages -d dist"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/iamconnaught/escape-room.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/iamconnaught/escape-room/issues"
+  },
+  "homepage": "https://github.com/iamconnaught/escape-room#readme"
+}
